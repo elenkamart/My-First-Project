@@ -24,4 +24,10 @@
             <class name="com.practicetestautomation.tests.login.RegisterButtonTest"/>
         </classes>
     </test>
+
+    <test name="Home Page Test">
+        <classes>
+            <class name="com.practicetestautomation.tests.login.HomePageTest"/>
+        </classes>
+    </test>
 </suite>

@@ -14,7 +14,8 @@ public class IndividualRegisterTest {
         WebDriver driver = new ChromeDriver();
         driver.get("https://info-car.pl/new/rejestracja/formularz");
 
-        WebElement cookieBtn= driver.findElement(By.id("cookiescript_reject"));
+        // Reject cookies
+        WebElement cookieBtn = driver.findElement(By.id("cookiescript_reject"));
         cookieBtn.click();
 
         try {
