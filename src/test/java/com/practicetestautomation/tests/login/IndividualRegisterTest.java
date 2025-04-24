@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class IndividualRegisterTest {
-    @Test
+    @Test(groups = {"positive","smoke"})
     public void individualRegisterFunctionality() {
         // Open Page
         WebDriver driver = new ChromeDriver();

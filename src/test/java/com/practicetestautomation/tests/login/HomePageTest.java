@@ -9,7 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class HomePageTest {
-    @Test
+    @Test(groups = {"positive","regression"})
     public void homePage() {
         // Open Page
         WebDriver driver = new ChromeDriver();

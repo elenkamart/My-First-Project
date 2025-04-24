@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ForgetPasswordTest {
-    @Test
+    @Test(groups = {"positive","regression"})
     public void testForgetPassword() {
         // Open Page
         WebDriver driver = new ChromeDriver();

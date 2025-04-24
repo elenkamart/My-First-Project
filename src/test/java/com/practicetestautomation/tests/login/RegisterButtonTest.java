@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class RegisterButtonTest {
-    @Test
+    @Test(groups = {"positive","regression"})
     public void RegisterButton() {
         // Open Page
         WebDriver driver = new ChromeDriver();
