@@ -3,41 +3,61 @@
 
 <suite name="Full Regression Suite" verbose="1">
     <test name="Login Tests">
+        <parameter name="browser" value="chrome"></parameter>
         <parameter name="username" value="elenapumpkin8@gmail.com"></parameter>
         <parameter name="password" value="Pumpkin@123"></parameter>
         <classes>
-            <class name="com.practicetestautomation.tests.login.LoginTest"/>
+            <class name="com.practicetestautomation.tests.login.LoginTest">
+            <methods>
+                <include name="testLoginFunctionality"></include>
+            </methods>
+            </class>
         </classes>
     </test>
 
     <test name="Negative Login Tests">
+        <parameter name="browser" value="chrome"></parameter>
         <parameter name="username" value="elenapumpkin@gmail.com"></parameter>
         <parameter name="password" value="Pumpkin@123"></parameter>
-        <groups>
-            <run>
-                <exclude name="positive"></exclude>
-            </run>
-        </groups>
         <classes>
-            <class name="com.practicetestautomation.tests.login.LoginTest"/>
+            <class name="com.practicetestautomation.tests.login.LoginTest">
+            <methods>
+                <exclude name="positive"></exclude>
+            </methods>
+            </class>
         </classes>
     </test>
 
     <test name="Forget Password">
+        <parameter name="browser" value="edge"></parameter>
         <classes>
-            <class name="com.practicetestautomation.tests.login.ForgetPasswordTest"/>
+            <class name="com.practicetestautomation.tests.login.ForgetPasswordTest">
+                    <methods>
+                        <include name="testForgetPassword"></include>
+                    </methods>
+            </class>
         </classes>
     </test>
 
     <test name="Register Button Test">
+        <parameter name="browser" value="edge"></parameter>
         <classes>
-            <class name="com.practicetestautomation.tests.login.RegisterButtonTest"/>
+            <class name="com.practicetestautomation.tests.login.RegisterButtonTest">
+            <methods>
+                <include name="registerButton"></include>
+            </methods>
+            </class>
         </classes>
     </test>
 
     <test name="Home Page Test">
+        <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="com.practicetestautomation.tests.login.HomePageTest"/>
+            <class name="com.practicetestautomation.tests.login.HomePageTest">
+                <methods>
+                    <include name="homePage"></include>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

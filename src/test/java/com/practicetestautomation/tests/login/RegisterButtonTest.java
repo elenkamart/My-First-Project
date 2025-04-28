@@ -3,15 +3,15 @@ package com.practicetestautomation.tests.login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class RegisterButtonTest {
     @Test(groups = {"positive","regression"})
-    public void RegisterButton() {
+    public void registerButton() {
         // Open Page
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new EdgeDriver();
         driver.get("https://info-car.pl/oauth2/login");
 
         // Push Register button

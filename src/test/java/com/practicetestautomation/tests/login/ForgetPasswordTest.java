@@ -3,7 +3,7 @@ package com.practicetestautomation.tests.login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,7 +11,7 @@ public class ForgetPasswordTest {
     @Test(groups = {"positive","regression"})
     public void testForgetPassword() {
         // Open Page
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new EdgeDriver();
         driver.get("https://info-car.pl/new/logowanie/zapomnialem-hasla");
 
         try {
