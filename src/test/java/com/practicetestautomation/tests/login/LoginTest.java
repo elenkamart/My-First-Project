@@ -65,9 +65,9 @@ public class LoginTest {
         }
 
         // Push Submit button
-        WebElement submitbutton = driver.findElement(By.id("register-button"));
+        WebElement submitButton = driver.findElement(By.id("register-button"));
         logger.info("Click Submit button");
-        submitbutton.click();
+        submitButton.click();
 
         try {
             Thread.sleep(2000);
@@ -81,9 +81,9 @@ public class LoginTest {
         Assert.assertEquals(actualUrl, expectedUrl);
 
         // Verify new page contains expected text ('Elena Povazhna')
-        String expectedngcontent= "Elena Pumpkin";
+        String expectedNgContent= "Elena Pumpkin";
         String pageSource = driver.getPageSource();
-        Assert.assertTrue(pageSource.contains(expectedngcontent));
+        Assert.assertTrue(pageSource.contains(expectedNgContent));
 
         // Verify button Log out is displayed on the new page
         WebElement logOutButton = driver.findElement(By.xpath("//button[@class='ng-tns-c4167178825-2']"));
