@@ -35,7 +35,6 @@ public class LoginTest {
                 break;
         }
         // Open Page
-        driver = new ChromeDriver();
         driver.get("https://info-car.pl/oauth2/login");
     }
 

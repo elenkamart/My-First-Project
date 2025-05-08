@@ -30,11 +30,10 @@ public class ForgetPasswordTest {
                 break;
             default:
                 logger.warning("Configuration for " + browser + " is missing, so running tests in Edge by default");
-                driver = new ChromeDriver();
+                driver = new EdgeDriver();
                 break;
         }
         // Open Page
-        driver = new ChromeDriver();
         driver.get("https://info-car.pl/new/logowanie/zapomnialem-hasla");
     }
     @AfterMethod(alwaysRun = true)

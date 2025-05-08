@@ -35,7 +35,6 @@ public class HomePageTest {
                 break;
         }
         // Open Page
-        driver = new ChromeDriver();
         driver.get("https://info-car.pl/new/");
     }
 

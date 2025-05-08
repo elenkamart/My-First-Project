@@ -3,28 +3,62 @@ package com.practicetestautomation.tests.login;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RegisterButtonTest {
-    @Test(groups = {"positive","regression"})
-    public void registerButton() {
+    private WebDriver driver;
+    private Logger logger;
+
+    @BeforeMethod(alwaysRun = true)
+    @Parameters("browser")
+    public void setUp(@Optional("edge") String browser) {
+        logger = Logger.getLogger(LoginTest.class.getName());
+        logger.setLevel(Level.INFO);
+        logger.info("Running test in" + browser);
+        switch (browser.toLowerCase()) {
+            case "chrome":
+                driver = new ChromeDriver();
+                break;
+            case "edge":
+                driver = new EdgeDriver();
+                break;
+            default:
+                logger.warning("Configuration for " + browser + " is missing, so running tests in Edge by default");
+                driver = new EdgeDriver();
+                break;
+        }
         // Open Page
-        WebDriver driver = new EdgeDriver();
         driver.get("https://info-car.pl/oauth2/login");
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        driver.quit();
+        logger.info("Browser is closed");
+    }
+
+    @Test(groups = {"positive", "regression"})
+    public void registerButton() {
 
         // Push Register button
-        WebElement registerbutton = driver.findElement(By.xpath("//button[@class='register-button']"));
-        registerbutton.click();
+        WebElement registerButton = driver.findElement(By.xpath("//button[@class='register-button']"));
+        logger.info("Click register button");
+        registerButton.click();
 
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        WebElement cookieBtn= driver.findElement(By.id("cookiescript_accept"));
+        // Accept cookies
+        WebElement cookieBtn = driver.findElement(By.id("cookiescript_accept"));
+        logger.info("Click accept cookies");
         cookieBtn.click();
 
         try {
@@ -34,13 +68,14 @@ public class RegisterButtonTest {
         }
 
         // Verify new page contains expected text ('Konto indywidualne') i ('Konto dla firm')
-        String expectedNgContent= "Konto indywidualne";
-        String ngContent= "Konto dla firm";
+        String expectedNgContent = "Konto indywidualne";
+        String ngContent = "Konto dla firm";
         String pageSource = driver.getPageSource();
         Assert.assertTrue(pageSource.contains(expectedNgContent), ngContent);
 
         // Push IndividualRegister button
         WebElement individualRegisterButton = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
+        logger.info("Click individual register button ");
         individualRegisterButton.click();
 
         try {
@@ -53,7 +88,53 @@ public class RegisterButtonTest {
         String expectedUrl = "https://info-car.pl/new/rejestracja/formularz";
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(actualUrl, expectedUrl);
+    }
 
-        driver.quit();
+    @Test(groups = {"positive", "regression"})
+    public void registerButtonForCompany() {
+        // Push Register button
+        WebElement registerButton = driver.findElement(By.xpath("//button[@class='register-button']"));
+        logger.info("Click register button");
+        registerButton.click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Reject cookies
+        WebElement cookieBtn = driver.findElement(By.id("cookiescript_reject"));
+        logger.info("Click reject cookies");
+        cookieBtn.click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Verify new page contains expected text ('Konto indywidualne') i ('Konto dla firm')
+        String expectedNgContent = "Konto indywidualne";
+        String ngContent = "Konto dla firm";
+        String pageSource = driver.getPageSource();
+        Assert.assertTrue(pageSource.contains(expectedNgContent), ngContent);
+
+        // Push firmRegister button
+        WebElement forFirmRegisterButton = driver.findElement(By.xpath("//a[@href='/new/tachograf/partnerzy/zakladanie-konta']"));
+        logger.info("Click for firm register button ");
+        forFirmRegisterButton.click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Verify new page URL
+        String expectedUrl = "https://info-car.pl/new/tachograf/partnerzy/zakladanie-konta";
+        String actualUrl = driver.getCurrentUrl();
+        Assert.assertEquals(actualUrl, expectedUrl);
     }
 }
+
