@@ -90,7 +90,7 @@ public class RegisterButtonTest {
         Assert.assertEquals(actualUrl, expectedUrl);
     }
 
-    @Test(groups = {"positive", "regression"})
+    @Test(groups = {"positive", "debug"})
     public void registerButtonForCompany() {
         // Push Register button
         WebElement registerButton = driver.findElement(By.xpath("//button[@class='register-button']"));
