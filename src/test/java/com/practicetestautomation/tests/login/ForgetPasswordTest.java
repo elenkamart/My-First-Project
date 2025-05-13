@@ -5,9 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,48 +46,21 @@ public class ForgetPasswordTest {
     }
     @Test(groups = {"positive","regression"})
     public void testForgetPassword() {
-        logger.info("Starting testForgetPassword");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-       WebElement cookieBtn= driver.findElement(By.id("cookiescript_reject"));
-        logger.info("Reject cookies");
+        WebElement cookieBtn= driver.findElement(By.id("cookiescript_reject"));
         cookieBtn.click();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        
         // Type address e-mail into Username field
-        WebElement emailInput = driver.findElement(By.id("email"));
-        logger.info("Type address e-mail");
+        WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
         emailInput.sendKeys("elenapumpkin8@gmail.com");
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         // Push Submit button
         WebElement submitbutton = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
-        logger.info("Click Submit button");
         submitbutton.click();
 
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        logger.info("Verify the information is displayed");
+        WebElement infoMessageBelowEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info-box__text")));
         // Verify information is displayed
-        WebElement infoMessageBelowEmail = driver.findElement(By.className("info-box__text"));
         Assert.assertTrue(infoMessageBelowEmail.isDisplayed());
 
         // Verify text is Na podany adres e-mail zostało wysłany link pozwalający na ustawienie nowego hasła.

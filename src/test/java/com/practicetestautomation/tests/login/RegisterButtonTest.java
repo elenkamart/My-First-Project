@@ -5,9 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,21 +53,12 @@ public class RegisterButtonTest {
         logger.info("Click register button");
         registerButton.click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         // Accept cookies
         WebElement cookieBtn = driver.findElement(By.id("cookiescript_accept"));
         logger.info("Click accept cookies");
         cookieBtn.click();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         // Verify new page contains expected text ('Konto indywidualne') i ('Konto dla firm')
         String expectedNgContent = "Konto indywidualne";
@@ -97,11 +90,7 @@ public class RegisterButtonTest {
         logger.info("Click register button");
         registerButton.click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Reject cookies
         WebElement cookieBtn = driver.findElement(By.id("cookiescript_reject"));
