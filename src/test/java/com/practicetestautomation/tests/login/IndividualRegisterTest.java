@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 public class IndividualRegisterTest {
     @Test(groups = {"positive","smoke"})
     public void individualRegisterFunctionality() {
+
         // Open Page
         WebDriver driver = new ChromeDriver();
         driver.get("https://info-car.pl/new/rejestracja/formularz");

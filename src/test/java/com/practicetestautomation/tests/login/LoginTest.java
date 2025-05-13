@@ -6,9 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.locators.RelativeLocator;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,71 +49,53 @@ public class LoginTest {
     @Parameters({"username","password"})
     @Test(groups = {"positive","regression"})
     public void testLoginFunctionality(String username, String password) {
-        logger.info("Starting testLoginFunctionality");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         // Type address e-mail student into Username field
-        WebElement emailInput = driver.findElement(By.id("username"));
-        logger.info("Type username");
+        WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
         emailInput.sendKeys("elenapumpkin8@gmail.com");
 
         // Type password into Password field
-        WebElement passwordInput = driver.findElement(By.id("password"));
-        logger.info("Type password");
+        WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
         passwordInput.sendKeys("Pumpkin@123");
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         // Push Submit button
         WebElement submitButton = driver.findElement(By.id("register-button"));
         logger.info("Click Submit button");
         submitButton.click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        logger.info("Verify the login functionality");
         // Verify new page URL
         String expectedUrl = "https://info-car.pl/new/";
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(actualUrl, expectedUrl);
 
-        // Verify new page contains expected text ('Elena Povazhna')
-        String expectedNgContent= "Elena Pumpkin";
-        String pageSource = driver.getPageSource();
-        Assert.assertTrue(pageSource.contains(expectedNgContent));
+        // Verify new page contains expected text ('Elena Pumpkin')
+        WebElement nameSurname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='ng-tns-c4167178825-2']")));
+        Assert.assertTrue(nameSurname.isDisplayed());
 
         // Verify button Log out is displayed on the new page
-        WebElement logOutButton = driver.findElement(By.xpath("//button[@class='ng-tns-c4167178825-2']"));
+        WebElement logOutButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='ng-tns-c4167178825-2']")));
         Assert.assertTrue(logOutButton.isDisplayed());
     }
 
 @Test(groups = {"negative","regression"})
 public void incorrectUsername() {
-        logger.info("Starting incorrectUsername");
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     // Type address incorrect e-mail into Username field
-    WebElement emailInput = driver.findElement(By.id("username"));
-    logger.info("Typing username: ");
+    WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
     emailInput.sendKeys("elenapumpkin@gmail.com");
 
     // Type password into Password field
-    WebElement passwordInput = driver.findElement(By.id("password"));
-    logger.info("Typing password");
+    WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
     passwordInput.sendKeys("Pumpkin@123");
 
     // Push Submit button
-    WebElement submitbutton = driver.findElement(By.id("register-button"));
-    logger.info("Click Submit button");
-    submitbutton.click();
+    WebElement submitButton = driver.findElement(By.id("register-button"));
+    submitButton.click();
 
-
-    logger.info("Verify the warning message: " + "expectedErrorMessage");
     // Verify warning message is displayed
-    WebElement errorMessageBelowPassword = driver.findElement(RelativeLocator.with(By.className("error-description-container")).below(By.id("password")));
+    WebElement errorMessageBelowPassword = wait.until(ExpectedConditions.visibilityOfElementLocated(RelativeLocator.with(By.className("error-description-container")).below(By.id("password"))));
     Assert.assertTrue(errorMessageBelowPassword.isDisplayed());
 
     // Verify error message text is E-mail bądź hasło nieprawidłowe. Popraw dane!

@@ -56,8 +56,8 @@ public class ForgetPasswordTest {
         emailInput.sendKeys("elenapumpkin8@gmail.com");
 
         // Push Submit button
-        WebElement submitbutton = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
-        submitbutton.click();
+        WebElement submitButton = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
+        submitButton.click();
 
         WebElement infoMessageBelowEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info-box__text")));
         // Verify information is displayed

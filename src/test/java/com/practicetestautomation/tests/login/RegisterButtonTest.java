@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -47,16 +48,15 @@ public class RegisterButtonTest {
 
     @Test(groups = {"positive", "regression"})
     public void registerButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Push Register button
         WebElement registerButton = driver.findElement(By.xpath("//button[@class='register-button']"));
         logger.info("Click register button");
         registerButton.click();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         // Accept cookies
-        WebElement cookieBtn = driver.findElement(By.id("cookiescript_accept"));
+        WebElement cookieBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookiescript_accept")));
         logger.info("Click accept cookies");
         cookieBtn.click();
 
