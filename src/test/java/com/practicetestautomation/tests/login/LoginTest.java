@@ -61,7 +61,6 @@ public class LoginTest {
 
         // Push Submit button
         WebElement submitButton = driver.findElement(By.id("register-button"));
-        logger.info("Click Submit button");
         submitButton.click();
 
         // Verify new page URL

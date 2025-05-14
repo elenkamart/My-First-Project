@@ -52,30 +52,22 @@ public class RegisterButtonTest {
 
         // Push Register button
         WebElement registerButton = driver.findElement(By.xpath("//button[@class='register-button']"));
-        logger.info("Click register button");
         registerButton.click();
 
         // Accept cookies
         WebElement cookieBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookiescript_accept")));
-        logger.info("Click accept cookies");
         cookieBtn.click();
 
-        // Verify new page contains expected text ('Konto indywidualne') i ('Konto dla firm')
-        String expectedNgContent = "Konto indywidualne";
-        String ngContent = "Konto dla firm";
-        String pageSource = driver.getPageSource();
-        Assert.assertTrue(pageSource.contains(expectedNgContent), ngContent);
+        // Verify new page contains expected text ('Konto indywidualne')
+//        String expectedNgContent = "Konto indywidualne";
+//        String pageSource = driver.getPageSource();
+//        Assert.assertTrue(pageSource.contains(expectedNgContent), ngContent);
+        WebElement individualAccount = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[@class='tile__title'] ['Konto indywidualne']")));
+        Assert.assertTrue(individualAccount.isDisplayed());
 
         // Push IndividualRegister button
         WebElement individualRegisterButton = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
-        logger.info("Click individual register button ");
         individualRegisterButton.click();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         // Verify new page URL
         String expectedUrl = "https://info-car.pl/new/rejestracja/formularz";
@@ -85,34 +77,27 @@ public class RegisterButtonTest {
 
     @Test(groups = {"positive", "debug"})
     public void registerButtonForCompany() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         // Push Register button
         WebElement registerButton = driver.findElement(By.xpath("//button[@class='register-button']"));
-        logger.info("Click register button");
         registerButton.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Reject cookies
         WebElement cookieBtn = driver.findElement(By.id("cookiescript_reject"));
-        logger.info("Click reject cookies");
         cookieBtn.click();
 
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         // Verify new page contains expected text ('Konto indywidualne') i ('Konto dla firm')
-        String expectedNgContent = "Konto indywidualne";
-        String ngContent = "Konto dla firm";
-        String pageSource = driver.getPageSource();
-        Assert.assertTrue(pageSource.contains(expectedNgContent), ngContent);
+//        String expectedNgContent = "Konto indywidualne";
+//        String ngContent = "Konto dla firm";
+//        String pageSource = driver.getPageSource();
+//        Assert.assertTrue(pageSource.contains(expectedNgContent), ngContent);
+        WebElement companyAccount = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[@class='tile__title'] ['Konto dla firm']")));
+        Assert.assertTrue(companyAccount.isDisplayed());
 
-        // Push firmRegister button
-        WebElement forFirmRegisterButton = driver.findElement(By.xpath("//a[@href='/new/tachograf/partnerzy/zakladanie-konta']"));
-        logger.info("Click for firm register button ");
-        forFirmRegisterButton.click();
+        // Push company Register button
+        WebElement companyRegisterButton = driver.findElement(By.xpath("//a[@href='/new/tachograf/partnerzy/zakladanie-konta']"));
+        companyRegisterButton.click();
 
         try {
             Thread.sleep(2000);

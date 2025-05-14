@@ -59,8 +59,8 @@ public class ForgetPasswordTest {
         WebElement submitButton = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
         submitButton.click();
 
-        WebElement infoMessageBelowEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info-box__text")));
         // Verify information is displayed
+        WebElement infoMessageBelowEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info-box__text")));
         Assert.assertTrue(infoMessageBelowEmail.isDisplayed());
 
         // Verify text is Na podany adres e-mail zostało wysłany link pozwalający na ustawienie nowego hasła.
