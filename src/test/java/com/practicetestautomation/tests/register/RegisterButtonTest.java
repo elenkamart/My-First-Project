@@ -1,5 +1,6 @@
-package com.practicetestautomation.tests.login;
+package com.practicetestautomation.tests.register;
 
+import com.practicetestautomation.tests.login.LoginTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

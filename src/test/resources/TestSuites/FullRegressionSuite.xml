@@ -42,7 +42,7 @@
     <test name="Register Button Test">
         <parameter name="browser" value="edge"></parameter>
         <classes>
-            <class name="com.practicetestautomation.tests.login.RegisterButtonTest">
+            <class name="com.practicetestautomation.tests.register.RegisterButtonTest">
             <methods>
                 <include name="registerButton"></include>
             </methods>

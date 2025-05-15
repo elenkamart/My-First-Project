@@ -1,4 +1,4 @@
-package com.practicetestautomation.tests.login;
+package com.practicetestautomation.tests.register;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

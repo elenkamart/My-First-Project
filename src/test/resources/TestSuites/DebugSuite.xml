@@ -3,7 +3,7 @@
 <suite name="Debug Suite" verbose="1">
     <test name="Debug Test">
         <classes>
-            <class name="com.practicetestautomation.tests.login.RegisterButtonTest">
+            <class name="com.practicetestautomation.tests.register.RegisterButtonTest">
             <methods>
             <include name="registerButtonForCompany"></include>
             </methods>
