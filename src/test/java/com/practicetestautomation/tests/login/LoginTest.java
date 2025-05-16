@@ -68,7 +68,7 @@ public class LoginTest {
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(actualUrl, expectedUrl);
 
-        // Verify new page contains expected text ('Elena Pumpkin')
+        // Verify new page contains expected username ('Elena Pumpkin')
         WebElement nameSurname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='ng-tns-c4167178825-2']")));
         Assert.assertTrue(nameSurname.isDisplayed());
 

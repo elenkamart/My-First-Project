@@ -29,15 +29,15 @@ public class LoginPage {
     public void submitButton() {
         driver.findElement(submitButtonLocator).click();
     }
-    public void executeLogin(String email, String password) {
+    public SuccessfulLoginPage executeLogin(String email, String password) {
         enterEmail(email);
         enterPassword(password);
         submitButton();
+        return new SuccessfulLoginPage(driver);
     }
     public String getErrorMessage() {
         WebElement errorMessageBelowPassword = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessageLocator));
         return errorMessageBelowPassword.getText();
     }
-
 }
 
