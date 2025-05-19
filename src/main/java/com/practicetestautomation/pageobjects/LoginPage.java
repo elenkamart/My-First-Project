@@ -14,6 +14,9 @@ public class LoginPage extends BasePage{
     public LoginPage(WebDriver driver) {
        super(driver);
     }
+    public void visit() {
+        super.visit("https://info-car.pl/oauth2/login");
+    }
     public void enterEmail(String email) {
         driver.findElement(emailInputLocator).sendKeys(email);
     }

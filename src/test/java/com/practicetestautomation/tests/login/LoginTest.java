@@ -1,5 +1,7 @@
 package com.practicetestautomation.tests.login;
 
+import com.practicetestautomation.pageobjects.LoginPage;
+import com.practicetestautomation.pageobjects.SuccessfulLoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,10 +39,7 @@ public class LoginTest {
                 driver = new ChromeDriver();
                 break;
         }
-        // Open Page
-        driver.get("https://info-car.pl/oauth2/login");
     }
-
     @AfterMethod(alwaysRun = true)
     public void tearDown(){
         driver.quit();
@@ -49,32 +48,15 @@ public class LoginTest {
     @Parameters({"username","password"})
     @Test(groups = {"positive","regression"})
     public void testLoginFunctionality(String username, String password) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Type address e-mail student into Username field
-        WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-        emailInput.sendKeys("elenapumpkin8@gmail.com");
-
-        // Type password into Password field
-        WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
-        passwordInput.sendKeys("Pumpkin@123");
-
-        // Push Submit button
-        WebElement submitButton = driver.findElement(By.id("register-button"));
-        submitButton.click();
-
-        // Verify new page URL
-        String expectedUrl = "https://info-car.pl/new/";
-        String actualUrl = driver.getCurrentUrl();
-        Assert.assertEquals(actualUrl, expectedUrl);
-
-        // Verify new page contains expected username ('Elena Pumpkin')
-        WebElement nameSurname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='ng-tns-c4167178825-2']")));
-        Assert.assertTrue(nameSurname.isDisplayed());
-
-        // Verify button Log out is displayed on the new page
-        WebElement logOutButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='ng-tns-c4167178825-2']")));
-        Assert.assertTrue(logOutButton.isDisplayed());
+       logger.info("Starting testLoginFunctionality");
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.visit();
+        SuccessfulLoginPage successfulLoginPage = loginPage.executeLogin("elenapumpkin8@gmail.com", "Pumpkin@123");
+        successfulLoginPage.load();
+        logger.info("Verify the login functionality");
+        Assert.assertEquals(successfulLoginPage.getCurrentUrl(),"https://info-car.pl/new/");
+        Assert.assertTrue(successfulLoginPage.getPageSource().contains("Elena Pumpkin"));
+        Assert.assertTrue(successfulLoginPage.isLogoutButtonDisplayed());
     }
 
 @Test(groups = {"negative","regression"})
