@@ -2,18 +2,12 @@ package com.practicetestautomation.tests.login;
 
 import com.practicetestautomation.pageobjects.LoginPage;
 import com.practicetestautomation.pageobjects.SuccessfulLoginPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.locators.RelativeLocator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +41,7 @@ public class LoginTest {
     }
     @Parameters({"username","password"})
     @Test(groups = {"positive","regression"})
-    public void testLoginFunctionality(String username, String password) {
+    public void testLoginFunctionality(String email, String password) {
        logger.info("Starting testLoginFunctionality");
         LoginPage loginPage = new LoginPage(driver);
         loginPage.visit();
@@ -58,31 +52,16 @@ public class LoginTest {
         Assert.assertTrue(successfulLoginPage.getPageSource().contains("Elena Pumpkin"));
         Assert.assertTrue(successfulLoginPage.isLogoutButtonDisplayed());
     }
-
+@Parameters({"username","password", "expectedErrorMessage" })
 @Test(groups = {"negative","regression"})
-public void incorrectUsername() {
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-    // Type address incorrect e-mail into Username field
-    WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-    emailInput.sendKeys("elenapumpkin@gmail.com");
-
-    // Type password into Password field
-    WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
-    passwordInput.sendKeys("Pumpkin@123");
-
-    // Push Submit button
-    WebElement submitButton = driver.findElement(By.id("register-button"));
-    submitButton.click();
-
-    // Verify warning message is displayed
-    WebElement errorMessageBelowPassword = wait.until(ExpectedConditions.visibilityOfElementLocated(RelativeLocator.with(By.className("error-description-container")).below(By.id("password"))));
-    Assert.assertTrue(errorMessageBelowPassword.isDisplayed());
-
-    // Verify error message text is E-mail bądź hasło nieprawidłowe. Popraw dane!
-    String expectedErrorMessage = "E-mail bądź hasło nieprawidłowe. Popraw dane";
-    String actualErrorMessage = errorMessageBelowPassword.getText();
-    Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
-   }
+public void incorrectUsernameTest(String email, String password, String expectedErrorMessage ) {
+   logger.info("Starting incorrectUsernameTest");
+    LoginPage loginPage = new LoginPage(driver);
+    loginPage.visit();
+    loginPage.executeLogin(email, password);
+    Assert.assertTrue(loginPage.getPageSource().contains("E-mail bądź hasło nieprawidłowe. Popraw dane"));
+    Assert.assertEquals(loginPage.getErrorMessage(), expectedErrorMessage);
 }
+}
+
 

@@ -19,10 +19,11 @@
         <parameter name="browser" value="chrome"></parameter>
         <parameter name="username" value="elenapumpkin@gmail.com"></parameter>
         <parameter name="password" value="Pumpkin@123"></parameter>
+        <parameter name="expectedErrorMessage" value="E-mail bądź hasło nieprawidłowe. Popraw dane"></parameter>
         <classes>
             <class name="com.practicetestautomation.tests.login.LoginTest">
             <methods>
-                <exclude name="positive"></exclude>
+                <exclude name="negative"></exclude>
             </methods>
             </class>
         </classes>
