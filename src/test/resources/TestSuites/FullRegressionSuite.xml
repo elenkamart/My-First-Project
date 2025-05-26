@@ -31,6 +31,8 @@
 
     <test name="Forget Password">
         <parameter name="browser" value="edge"></parameter>
+        <parameter name="username" value="elenapumpkin8@gmail.com"></parameter>
+        <parameter name="expectedInfoMessage" value="Na podany adres e-mail zostało wysłany link pozwalający na ustawienie nowego hasła."></parameter>
         <classes>
             <class name="com.practicetestautomation.tests.login.ForgetPasswordTest">
                     <methods>

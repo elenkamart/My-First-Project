@@ -8,7 +8,6 @@ public class SuccessfulLoginPage extends BasePage {
 
     public SuccessfulLoginPage(WebDriver driver) {
        super(driver);
-
     }
     public boolean isLogoutButtonDisplayed() {
             return isDisplayed(logOutButtonLocator);
