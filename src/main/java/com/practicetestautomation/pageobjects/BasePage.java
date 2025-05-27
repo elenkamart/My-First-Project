@@ -1,17 +1,17 @@
 package com.practicetestautomation.pageobjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.jspecify.annotations.Nullable;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.time.Duration;
 
 public class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected JavascriptExecutor jse;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -36,4 +36,19 @@ public class BasePage {
             return false;
         }
     }
-}
+    protected boolean waitForIsDisplayed(By locator) {
+        try {
+            waitForElement(locator);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+    protected @Nullable Object goDownTo(By locator) {
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+       return jse.executeScript("window.scrollBy(0, 3000)");
+    }
+    }
+
+
+

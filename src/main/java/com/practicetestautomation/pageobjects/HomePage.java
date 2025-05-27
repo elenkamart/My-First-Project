@@ -26,13 +26,22 @@ public class HomePage extends BasePage {
     public void menuDriverLicenseBtn() {
         driver.findElement(menuDriverLicenseBtnLocator).click();
     }
+    public boolean isServiceLinkDisplayedAfterWait(){
+        return waitForIsDisplayed(serviceLinkLocator);
+    }
     public void serviceLink() {
         driver.findElement(serviceLinkLocator).click();
+    }
+    public boolean isSignUpLinkDisplayedAfterWait() {
+        return waitForIsDisplayed(signUpLinkLocator);
     }
     public void signUpLink() {
         driver.findElement(signUpLinkLocator).click();
     }
+    public void goDownToSignUpBtn() {
+        driver.findElement(signUpBtnLocator).isDisplayed();
+    }
     public void signUpBtn() {
-        driver.findElement(signUpBtnLocator).click();
+       driver.findElement(signUpBtnLocator).click();
     }
 }

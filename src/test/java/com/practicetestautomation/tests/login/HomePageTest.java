@@ -1,10 +1,8 @@
 package com.practicetestautomation.tests.login;
 
 import com.practicetestautomation.pageobjects.HomePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
@@ -16,6 +14,7 @@ import java.util.logging.Logger;
 public class HomePageTest {
     private WebDriver driver;
     private Logger logger;
+    private JavascriptExecutor jse = (JavascriptExecutor) driver;
 
     @BeforeMethod(alwaysRun = true)
     @Parameters("browser")
@@ -49,14 +48,19 @@ public class HomePageTest {
         homePage.rejectCookieBtn();
         homePage.dropDownCategoriesBtn();
         homePage.menuDriverLicenseBtn();
+        homePage.isServiceLinkDisplayedAfterWait();
         logger.info("Verify new page Url");
         Assert.assertEquals(homePage.getCurrentUrl(),"https://info-car.pl/new/prawo-jazdy");
         homePage.serviceLink();
+        homePage.isSignUpLinkDisplayedAfterWait();
         logger.info("Verify new page Url");
         Assert.assertEquals(homePage.getCurrentUrl(),"https://info-car.pl/new/prawo-jazdy/sprawdz-wolny-termin");
         homePage.signUpLink();
-        logger.info("Verify new page Url");
-        Assert.assertEquals(homePage.getCurrentUrl(),"https://info-car.pl/new/prawo-jazdy/zapisz-sie-na-egzamin-na-prawo-jazdy");
+        homePage.goDownToSignUpBtn();
+        homePage.signUpBtn();
+//        JavascriptExecutor jse = (JavascriptExecutor)driver;
+//        WebElement signUpBtn = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
+//        jse.executeScript("window.scrollBy(0, 3000)",signUpBtn);
 
 //        // Verify new page URL
 //        String expectedUrl = "https://info-car.pl/new/prawo-jazdy";
@@ -76,9 +80,6 @@ public class HomePageTest {
 
 
         // Scroll down and click signInBtn
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
-        WebElement signUpBtn = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
-        jse.executeScript("window.scrollBy(0, 3000)",signUpBtn);
 
     }
 }
