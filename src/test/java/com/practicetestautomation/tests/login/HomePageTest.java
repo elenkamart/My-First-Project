@@ -1,28 +1,26 @@
 package com.practicetestautomation.tests.login;
 
 import com.practicetestautomation.pageobjects.HomePage;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HomePageTest {
     private WebDriver driver;
     private Logger logger;
-    private JavascriptExecutor jse = (JavascriptExecutor) driver;
-
     @BeforeMethod(alwaysRun = true)
     @Parameters("browser")
-    public void setUp(@Optional("chrome")String browser){
+    public void setUp(@Optional("chrome") String browser) {
         logger = Logger.getLogger(LoginTest.class.getName());
         logger.setLevel(Level.INFO);
-        logger.info("Running test in"+ browser);
-        switch (browser.toLowerCase()){
+        logger.info("Running test in" + browser);
+        switch (browser.toLowerCase()) {
             case "chrome":
                 driver = new ChromeDriver();
                 break;
@@ -37,12 +35,14 @@ public class HomePageTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
         logger.info("Browser is closed");
     }
-    @Test(groups = {"positive","regression"})
-    public void homePage() {
+
+    @Test(groups = {"positive", "regression"})
+    public void testHomePage() throws InterruptedException {
+        logger.info("Starting testHomePage");
         HomePage homePage = new HomePage(driver);
         homePage.visit();
         homePage.rejectCookieBtn();
@@ -50,17 +50,23 @@ public class HomePageTest {
         homePage.menuDriverLicenseBtn();
         homePage.isServiceLinkDisplayedAfterWait();
         logger.info("Verify new page Url");
-        Assert.assertEquals(homePage.getCurrentUrl(),"https://info-car.pl/new/prawo-jazdy");
+        Assert.assertEquals(homePage.getCurrentUrl(), "https://info-car.pl/new/prawo-jazdy");
         homePage.serviceLink();
         homePage.isSignUpLinkDisplayedAfterWait();
         logger.info("Verify new page Url");
-        Assert.assertEquals(homePage.getCurrentUrl(),"https://info-car.pl/new/prawo-jazdy/sprawdz-wolny-termin");
+        Assert.assertEquals(homePage.getCurrentUrl(), "https://info-car.pl/new/prawo-jazdy/sprawdz-wolny-termin");
         homePage.signUpLink();
-        homePage.goDownToSignUpBtn();
-        homePage.signUpBtn();
-//        JavascriptExecutor jse = (JavascriptExecutor)driver;
-//        WebElement signUpBtn = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
-//        jse.executeScript("window.scrollBy(0, 3000)",signUpBtn);
+        logger.info("Verify new page Url");
+        Assert.assertEquals(homePage.getCurrentUrl(), "https://info-car.pl/new/prawo-jazdy/zapisz-sie-na-egzamin-na-prawo-jazdy");
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        WebElement signUpBtn = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
+//        driver.findElement(By.xpath("//button[@class='ghost-btn']")).sendKeys(Keys.CONTROL, Keys.END);
+        jse.executeScript("arguments[0].scrollIntoView(true);", signUpBtn);
+        driver.manage().timeouts().implicitlyWait(250, TimeUnit.SECONDS);
+        homePage.waitForSignUpBtn();
+        Thread.sleep(3000);
+        homePage.setSignUpBtn();
 
 //        // Verify new page URL
 //        String expectedUrl = "https://info-car.pl/new/prawo-jazdy";
@@ -79,7 +85,10 @@ public class HomePageTest {
 //        Assert.assertEquals(actualLinkUrl, expectedLinkUrl);
 
 
-        // Scroll down and click signInBtn
+                // Scroll down and click signInBtn
+//        JavascriptExecutor jse = (JavascriptExecutor)driver;
+//        WebElement signUpBtn = driver.findElement(By.xpath("//button[@class='ghost-btn']"));
+//        jse.executeScript("window.scrollBy(0, 3000)",signUpBtn);
+            }
+        }
 
-    }
-}
