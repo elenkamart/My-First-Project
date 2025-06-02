@@ -1,44 +1,42 @@
 package com.practicetestautomation.tests.login;
 
 import com.practicetestautomation.pageobjects.HomePage;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class HomePageTest {
-    private WebDriver driver;
-    private Logger logger;
-    @BeforeMethod(alwaysRun = true)
-    @Parameters("browser")
-    public void setUp(@Optional("chrome") String browser) {
-        logger = Logger.getLogger(LoginTest.class.getName());
-        logger.setLevel(Level.INFO);
-        logger.info("Running test in" + browser);
-        switch (browser.toLowerCase()) {
-            case "chrome":
-                driver = new ChromeDriver();
-                break;
-            case "edge":
-                driver = new EdgeDriver();
-                break;
-            default:
-                logger.warning("Configuration for " + browser + " is missing, so running tests in Chrome by default");
-                driver = new ChromeDriver();
-                break;
-        }
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void tearDown() {
-        driver.quit();
-        logger.info("Browser is closed");
-    }
+public class HomePageTest extends BaseTest {
+//    private WebDriver driver;
+//    private Logger logger;
+//    @BeforeMethod(alwaysRun = true)
+//    @Parameters("browser")
+//    public void setUp(@Optional("chrome") String browser) {
+//        logger = Logger.getLogger(LoginTest.class.getName());
+//        logger.setLevel(Level.INFO);
+//        logger.info("Running test in" + browser);
+//        switch (browser.toLowerCase()) {
+//            case "chrome":
+//                driver = new ChromeDriver();
+//                break;
+//            case "edge":
+//                driver = new EdgeDriver();
+//                break;
+//            default:
+//                logger.warning("Configuration for " + browser + " is missing, so running tests in Chrome by default");
+//                driver = new ChromeDriver();
+//                break;
+//        }
+//    }
+//
+//    @AfterMethod(alwaysRun = true)
+//    public void tearDown() {
+//        driver.quit();
+//        logger.info("Browser is closed");
+//    }
 
     @Test(groups = {"positive", "regression"})
     public void testHomePage() throws InterruptedException {
