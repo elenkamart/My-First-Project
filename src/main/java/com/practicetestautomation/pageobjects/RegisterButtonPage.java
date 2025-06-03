@@ -31,12 +31,12 @@ public class RegisterButtonPage extends BasePage{
         driver.findElement(individualRegisterBtnLocator).click();
     }
     public void rejectCookieBtn() {
-        driver.findElement(rejectCookieBtnLocator);
+        driver.findElement(rejectCookieBtnLocator).click();
     }
     public boolean isCompanyAccountDisplayedAfterWait() {
         return waitForIsDisplayed(companyAccountLocator);
     }
     public void pushCompanyRegisterBtn() {
-        driver.findElement(companyRegisterBtnLocator);
+        driver.findElement(companyRegisterBtnLocator).click();
     }
 }

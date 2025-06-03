@@ -77,7 +77,7 @@ public class RegisterButtonTest extends BaseTest {
         registerButtonPage.rejectCookieBtn();
         registerButtonPage.isCompanyAccountDisplayedAfterWait();
         registerButtonPage.pushCompanyRegisterBtn();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Assert.assertEquals(registerButtonPage.getCurrentUrl(),"https://info-car.pl/new/tachograf/partnerzy/zakladanie-konta");
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         // Push Register button
